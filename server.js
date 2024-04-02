@@ -1,24 +1,26 @@
-let express = require("express");
-let app = express();
-let port = 3000;
-
+var express = require("express");
+var app = express();
 app.use(express.static(__dirname + "/"));
-app.get("/", (req, res) => {
-	res.render("index.html");
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+const cardList = [
+	{
+		title: "Kitten 2",
+		image: "images/kitten.jpg",
+		link: "About Kitten 2",
+		desciption: "Demo desciption about kitten 2",
+	},
+	{
+		title: "Kitten 3",
+		image: "images/kitten.jpg",
+		link: "About Kitten 3",
+		desciption: "Demo desciption about kitten 3",
+	},
+];
+app.get("/api/projects", (req, res) => {
+	res.json({ statusCode: 200, data: cardList, message: "Success" });
 });
-
-app.get("/addTwoNumbers", (req, res) => {
-	// 1 gram the values from url parameter
-	let value1 = req.query.num1;
-	let value2 = req.query.num2;
-
-	// 2 calculation
-	let result = parseInt(value1) + parseInt(value2);
-
-	// 3 returen the response, the response has to be in an object
-	let response = { data: result, statusCode: 200, message: "success" };
-	res.json(response);
-});
+var port = process.env.port || 3000;
 app.listen(port, () => {
-	console.log("server started!");
+	console.log("App listening to: " + port);
 });
