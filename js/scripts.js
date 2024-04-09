@@ -1,15 +1,17 @@
+// const { postCard } = require("./server.js");
+
 const addCards = (items) => {
-	items.forEach((item) => {
+	arr = Array.from(items);
+	arr.forEach((item) => {
 		let itemToAppend =
 			'<div class="col s4 center-align">' +
 			'<div class="card medium"><div class="card-image waves-effect waves-block waves-light"><img class="activator" src="' +
 			item.path +
-			'">' +
-			'</div><div class="card-content">' +
+			'"></div>' +
+			'<div class="card-content">' +
 			'<span class="card-title activator grey-text text-darken-4">' +
 			item.title +
-			'<i class="material-icons right">more_vert</i></span><p><a href="#">' +
-			"</a></p></div>" +
+			'<i class="material-icons right">more_vert</i></span><p><a href="#"></a></p></div>' +
 			'<div class="card-reveal">' +
 			'<span class="card-title grey-text text-darken-4">' +
 			item.subTitle +
@@ -23,20 +25,21 @@ const addCards = (items) => {
 };
 
 const submitForm = () => {
-	let formData = {};
-	formData.title = $("#title").val();
-	formData.subTitle = $("#subTitle").val();
-	formData.path = $("#path").val();
-	formData.description = $("#description").val();
+	let formData = {
+		title: $("#title").val(),
+		subTitle: $("#subTitle").val(),
+		path: $("#path").val(),
+		description: $("#description").val(),
+	};
 
 	console.log(formData);
-	postCat(formData);
+	// postCard(formData);
 };
 
-//* update your own code
 const getcards = () => {
 	$.get("/api/cards", (response) => {
 		if (response.statusCode == 200) {
+			console.log(response.data);
 			addCards(response.data);
 		}
 	});
@@ -47,6 +50,7 @@ $(document).ready(function () {
 	$("#formSubmit").click(() => {
 		submitForm();
 	});
+
 	$(".modal").modal();
 	getcards();
 });

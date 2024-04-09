@@ -58,7 +58,19 @@ app.get("/api/cards", async (req, res) => {
 	}
 });
 
+const postCard = (formData) => {
+	console.log(formData);
+};
+
+app.get("/", (req, res) => {
+	if (req.statusCode == 200) {
+		console.log("success Hurray");
+	}
+});
+
 app.listen(port, () => {
 	console.log("Express server started");
 	runDBConnection();
 });
+
+// module.exports = { postCard };
