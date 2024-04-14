@@ -31,11 +31,11 @@ function submitForm() {
 	formData.description = $("#description").val();
 
 	console.log("Form Data Submitted: ", formData);
-	postCat(formData);
+	postCard(formData);
 }
 
-function getCats() {
-	$.get("api/cats", (response) => {
+function getCards() {
+	$.get("api/Cards", (response) => {
 		console.log(response.data);
 		if (response.data) {
 			addCards(response.data);
@@ -43,10 +43,10 @@ function getCats() {
 	});
 }
 
-function postCat(cat) {
+function postCard(card) {
 	$.ajax({
-		url: "api/cat",
-		data: cat,
+		url: "api/postCard",
+		data: card,
 		type: "POST",
 		success: (result) => {
 			console.log(result.data);
@@ -56,7 +56,7 @@ function postCat(cat) {
 
 $(document).ready(function () {
 	$(".materialboxed").materialbox();
-	getCats();
+	getCards();
 	$(".modal").modal();
 	$("#formSubmit").click(() => {
 		submitForm();
